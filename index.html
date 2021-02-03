@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ accordion with animated plus</title>
+</head>
+
+<style>
+  button.accordion {
+    background-color: #d7f2bc;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 18px;
+    transition: 0.4s;
+  }
+
+  button.accordion.active,
+  button.accordion:hover {
+    background-color: #addf7f;
+  }
+
+  button.accordion:after {
+    content: '\2212';
+    color: #777;
+    font-weight: bold;
+    margin-left: 5px;
+    font-size: 22px;
+    position: absolute;
+    right: 18px;
+  }
+
+  button.accordion.active:after {
+    content: "\2212";
+  }
+
+  button.accordion:before {
+    content: '\2212';
+    color: #777;
+    font-weight: bold;
+    font-size: 22px;
+    position: absolute;
+    right: 18px;
+    transform: rotate(90deg);
+    transition: .3s all ease;
+  }
+
+  button.accordion.active:before {
+    content: "\2212";
+    transform: rotate(0deg);
+  }
+
+  .accordion-panel {
+    background-color: #fff;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    margin-bottom: 20px;
+    border: 1px solid #addf80;
+    border-radius: 0;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+  }
+
+  .filter-box {
+    border-radius: 0;
+  }
+
+  .filter-body {
+    display: none;
+    border: 1px solid #addf80;
+    padding: 10px 0;
+    transition: height 0.2s ease-out;
+  }
+
+  .show-hide {
+    display: block;
+  }
+
+  /* Working expander */
+  .expander {
+    display: flex;
+  }
+
+  .expander__container {
+    width: 100%;
+  }
+
+  .expander__content {
+    position: relative;
+    transition: all .3s ease;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .expander__content--open {
+    max-height: 100%;
+  }
+</style>
+
+<body>
+  <h1>Accordion</h1>
+  <p>2 different solutions have been implemented.</p>
+  <ol>
+    <li> <a href="https://stackoverflow.com/a/46908527/5263954">Pedram's solution</a> (All external libraries removed. No more smooth scrolling.)
+    </li>
+    <li> <a href="https://github.com/w3c/csswg-drafts/issues/626#issuecomment-676230792">jchiem's solution (Smooth scrolling only inside container. Text below "jumps".)</a></li>
+  </ol>
+  <div class="panel-group filter-box transition" id="accordion">
+
+    <button class="accordion" id="filter-button" data-toggle="collapse" data-parent="#accordion">Pedram's
+      solution</button>
+
+    <div id="filter-body" class="panel-collapse collapse">
+      <div class="panel-body filter-body">
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+        <p>Content</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Working expander -->
+  <div class="expander">
+    <div class="expander__container">
+      <button class="expander__button accordion">jchiem's solution</button>
+      <div class="expander__content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et faucibus turpis. Nam lacinia ex non maximus
+          auctor. Donec vestibulum, ipsum quis iaculis cursus, velit odio cursus orci, ut posuere lacus lorem et tortor.
+          Phasellus sit amet sodales orci. Donec pretium, mauris nec aliquam rutrum, neque risus dapibus urna, eu
+          eleifend ex dui et diam. Nunc pulvinar elit et urna ornare, non interdum purus faucibus. Aliquam aliquet lacus
+          vitae suscipit euismod.
+        </p>
+      </div>
+    </div>
+
+  </div>
+  <h1>Some more stuff</h1>
+</body>
+
+<script>
+  const button = document.querySelector("#filter-button");
+  const filterBody = document.querySelector(".filter-body");
+  button.addEventListener("click", function () {
+    button.classList.toggle("active");
+    filterBody.classList.toggle("show-hide");
+  });
+
+  // Working expander
+  const btn = document.querySelector('.expander__button');
+  const content = document.querySelector('.expander__content');
+
+  btn.addEventListener('click', (e) => {
+    content.classList.toggle('expander__content--open');
+    btn.classList.toggle("active");
+  });
+</script>
+
+</html>
